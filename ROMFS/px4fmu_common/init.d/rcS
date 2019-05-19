@@ -24,9 +24,9 @@ set +e
 # UART1			/dev/ttyS0		IO debug (except v4, there ttyS0 is the wifi)
 # USART2		/dev/ttyS1		TELEM1 (flow control)
 # USART3		/dev/ttyS2		TELEM2 (flow control)
-# UART4
-# UART7							CONSOLE
-# UART8							SERIAL4
+# UART4         /dev/ttyS3      GPS
+# UART7			/dev/ttyS5		CONSOLE
+# UART8			/dev/ttyS6		SERIAL4
 #
 #
 # UART mapping on FMUv5:
@@ -708,6 +708,8 @@ fi
 	fi
 
 	unset MAVLINK_COMPANION_DEVICE
+
+	mavlink start -d /dev/ttyS6 -b 57600 -m osd -r 1000
 
 	#
 	# Starting stuff according to UAVCAN_ENABLE value
