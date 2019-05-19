@@ -896,6 +896,18 @@ MavlinkReceiver::handle_message_set_position_target_local_ned(mavlink_message_t 
 		PX4_ISFINITE(set_position_target_local_ned.afz) &&
 		PX4_ISFINITE(set_position_target_local_ned.yaw);
 
+	// warnx("x=%.3f",(double)set_position_target_local_ned.x);
+	// 	warnx("y=%.3f",(double)set_position_target_local_ned.y);
+	// 	warnx("z=%.3f",(double)set_position_target_local_ned.z);
+	// 	warnx("vx=%.3f",(double)set_position_target_local_ned.vx);
+	// 	warnx("vy=%.3f",(double)set_position_target_local_ned.vy);
+	// 	warnx("vz=%.3f",(double)set_position_target_local_ned.vz);
+	// 	warnx("ax=%.3f",(double)set_position_target_local_ned.afx);
+	// 	warnx("ay=%.3f",(double)set_position_target_local_ned.afy);
+	// 	warnx("ax=%.3f",(double)set_position_target_local_ned.afz);
+	// 	warnx("yaw=%.3f",(double)set_position_target_local_ned.yaw);	
+	// 	warnx("type mask=%04x",set_position_target_local_ned.type_mask);	
+
 	/* Only accept messages which are intended for this system */
 	if ((mavlink_system.sysid == set_position_target_local_ned.target_system ||
 	     set_position_target_local_ned.target_system == 0) &&

@@ -3084,30 +3084,36 @@ private:
 
 protected:
 	explicit MavlinkStreamOpticalFlowRad(Mavlink *mavlink) : MavlinkStream(mavlink),
-		_flow_sub(_mavlink->add_orb_subscription(ORB_ID(optical_flow))),
+		/*_flow_sub(_mavlink->add_orb_subscription(ORB_ID(optical_flow))),*/
+		_flow_sub(_mavlink->add_orb_subscription(ORB_ID(distance_sensor))),
 		_flow_time(0)
 	{}
 
 	bool send(const hrt_abstime t)
 	{
-		optical_flow_s flow;
+		//optical_flow_s flow;
+		distance_sensor_s flow;
 
 		if (_flow_sub->update(&_flow_time, &flow)) {
 			mavlink_optical_flow_rad_t msg = {};
-
+			
 			msg.time_usec = flow.timestamp;
-			msg.sensor_id = flow.sensor_id;
-			msg.integrated_x = flow.pixel_flow_x_integral;
-			msg.integrated_y = flow.pixel_flow_y_integral;
-			msg.integrated_xgyro = flow.gyro_x_rate_integral;
-			msg.integrated_ygyro = flow.gyro_y_rate_integral;
-			msg.integrated_zgyro = flow.gyro_z_rate_integral;
-			msg.distance = flow.ground_distance_m;
-			msg.quality = flow.quality;
-			msg.integration_time_us = flow.integration_timespan;
-			msg.sensor_id = flow.sensor_id;
-			msg.time_delta_distance_us = flow.time_since_last_sonar_update;
-			msg.temperature = flow.gyro_temperature;
+			msg.distance = flow.current_distance;
+			//warnx("mb1241 distance is %.2f", (double)msg.distance);
+
+			// msg.time_usec = flow.timestamp;
+			// msg.sensor_id = flow.sensor_id;
+			// msg.integrated_x = flow.pixel_flow_x_integral;
+			// msg.integrated_y = flow.pixel_flow_y_integral;
+			// msg.integrated_xgyro = flow.gyro_x_rate_integral;
+			// msg.integrated_ygyro = flow.gyro_y_rate_integral;
+			// msg.integrated_zgyro = flow.gyro_z_rate_integral;
+			// msg.distance = flow.ground_distance_m;
+			// msg.quality = flow.quality;
+			// msg.integration_time_us = flow.integration_timespan;
+			// msg.sensor_id = flow.sensor_id;
+			// msg.time_delta_distance_us = flow.time_since_last_sonar_update;
+			// msg.temperature = flow.gyro_temperature;
 
 			mavlink_msg_optical_flow_rad_send_struct(_mavlink->get_channel(), &msg);
 

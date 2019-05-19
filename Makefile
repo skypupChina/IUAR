@@ -58,6 +58,7 @@ endif
 
 #  explicity set default build target
 all: posix_sitl_default
+v2: px4fmu-v2_default
 
 # Parsing
 # --------------------------------------------------------------------
@@ -159,7 +160,7 @@ posix: posix_sitl_default
 broadcast: posix_sitl_broadcast
 
 # All targets with just dependencies but no recipe must either be marked as phony (or have the special @: as recipe).
-.PHONY: all posix broadcast all_nuttx_targets
+.PHONY: all v2 posix broadcast all_nuttx_targets
 
 # Multi- config targets.
 eagle_default: posix_eagle_default qurt_eagle_default
